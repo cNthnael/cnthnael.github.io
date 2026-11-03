@@ -1,0 +1,348 @@
+<!doctype html>
+<!--
+  Portfolio site - Carlo Nathanael
+  Version: v1.5 (Tamantic card now shows the Tamantic and Bangkit logos)
+  Created: v1.0 2026-11-03 12:42 WIB | v1.1 2026-11-03 12:46 WIB | v1.2 2026-11-03 13:06 WIB | v1.3 2026-11-03 13:07 WIB | v1.4 2026-11-03 13:21 WIB | v1.5 2026-11-03 13:24 WIB (Asia/Jakarta, UTC+07:00)
+  Single-file static site, ready for GitHub Pages (save as index.html in the repo root).
+  Photo: put your picture at assets/profile.jpg in the repo. Until then the "CN" initials show.
+  Project visuals: each .visual block holds an inline SVG illustration. To use a real screenshot
+  instead, replace the <svg> with <img src="assets/your-shot.png" alt="...">.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlo Nathanael — Portfolio</title>
+<meta name="description" content="Computer Science graduate building applied ML, web and workflow-automation projects. Thesis on medical image captioning with Florence-2.">
+<style>
+  :root{
+    --bg:#f6f4ef; --surface:#ffffff; --ink:#16181d; --muted:#5d6370; --line:#e2ded4;
+    --accent:#0f5bd8; --accent-soft:#e6eefc; --tag:#eef0f4;
+    --radius:14px; --maxw:880px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1115; --surface:#171a21; --ink:#eceef2; --muted:#9aa1ae; --line:#262a33;
+      --accent:#6ea2ff; --accent-soft:#1a2740; --tag:#212633;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.65 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+  header.nav{
+    position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px}
+  .nav b{letter-spacing:.2px}
+  .nav nav{display:flex; gap:18px; font-size:14px}
+  .nav nav a{color:var(--muted)}
+  .nav nav a:hover{color:var(--ink); text-decoration:none}
+  @media (max-width:560px){ .nav nav{gap:12px; font-size:13px} }
+
+  .banner{
+    position:relative; width:100%; height:clamp(150px,26vw,300px); overflow:hidden;
+    background:#0b0d11; border-bottom:1px solid var(--line);
+  }
+  .banner img{width:100%; height:100%; object-fit:cover; object-position:50% 58%; display:block}
+  .banner::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:40%;
+    background:linear-gradient(to bottom, transparent, color-mix(in srgb,var(--bg) 35%,transparent));
+    pointer-events:none;
+  }
+  .hero{padding:56px 0 40px; display:grid; grid-template-columns:1fr 220px; gap:36px; align-items:center}
+  .avatar{
+    position:relative; width:220px; height:220px; border-radius:50%; overflow:hidden;
+    background:var(--accent-soft); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:64px; font-weight:700; letter-spacing:.04em; color:var(--accent);
+  }
+  .avatar img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr; padding-top:48px}
+    .avatar{order:-1; width:140px; height:140px; font-size:42px}
+  }
+  .visual{
+    background:var(--accent-soft); border-radius:10px; margin:0 0 16px; overflow:hidden;
+  }
+  .visual svg, .visual img{display:block; width:100%; height:auto}
+  .visual.shot{padding:16px 0 0; text-align:center}
+  .visual.shot img{width:auto; max-width:calc(100% - 32px); max-height:380px; margin:0 auto; border-radius:10px; box-shadow:0 1px 0 var(--line)}
+  .visual.shot.wide img{width:100%; max-width:calc(100% - 32px); max-height:none}
+  .visual.logos{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:stretch; padding:16px}
+  .visual.logos .tile{background:#fff; border-radius:10px; display:flex; align-items:center; justify-content:center; padding:10px; border:1px solid var(--line)}
+  .visual.logos img{width:auto; max-width:100%; height:150px}
+  .visual .cap{font-size:12.5px; color:var(--muted); padding:10px 16px 14px}
+  .visual .ln{stroke:var(--muted); fill:none; stroke-width:1.6}
+  .visual .ln-accent{stroke:var(--accent); fill:none; stroke-width:2}
+  .visual .box{fill:var(--surface); stroke:var(--line); stroke-width:1.2}
+  .visual .box-accent{fill:var(--accent); stroke:var(--accent)}
+  .visual .fill-accent{fill:var(--accent)}
+  .visual .fill-muted{fill:var(--line)}
+  .visual .txt{fill:var(--ink); font:600 12px system-ui,sans-serif}
+  .visual .txt-s{fill:var(--muted); font:11px system-ui,sans-serif}
+  .visual .txt-w{fill:#fff; font:600 12px system-ui,sans-serif}
+  .eyebrow{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600}
+  h1{font-size:clamp(34px,6vw,54px); line-height:1.08; margin:10px 0 18px; letter-spacing:-.02em}
+  .lead{font-size:18px; color:var(--muted); max-width:640px; margin:0 0 26px}
+  .cta{display:flex; flex-wrap:wrap; gap:10px}
+  .btn{
+    display:inline-block; padding:10px 18px; border-radius:999px; font-weight:600; font-size:15px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  }
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+  .btn:hover{text-decoration:none; transform:translateY(-1px)}
+
+  section{padding:44px 0; border-top:1px solid var(--line)}
+  h2{font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 22px}
+
+  .grid{display:grid; gap:16px}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px 22px 20px;
+  }
+  .card h3{margin:0 0 4px; font-size:20px; letter-spacing:-.01em}
+  .meta{font-size:13.5px; color:var(--muted); margin:0 0 12px}
+  .card p{margin:0 0 12px}
+  .card p:last-child{margin-bottom:0}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
+  .tag{background:var(--tag); border-radius:999px; padding:3px 11px; font-size:12.5px; color:var(--muted)}
+  .featured{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+  .badge{
+    display:inline-block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--accent-soft); color:var(--accent); padding:2px 10px; border-radius:999px; margin-bottom:10px;
+  }
+
+  .about p{max-width:680px; margin:0 0 14px}
+  .skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
+  .skills h3{font-size:15px; margin:0 0 8px}
+  .skills .tags{margin-top:0}
+
+  .timeline{display:grid; gap:18px}
+  .row{display:grid; grid-template-columns:150px 1fr; gap:16px}
+  .row .when{font-size:14px; color:var(--muted)}
+  .row h3{margin:0 0 2px; font-size:17px}
+  .row p{margin:0; color:var(--muted)}
+  @media (max-width:620px){ .row{grid-template-columns:1fr; gap:2px} }
+
+  footer{padding:36px 0 60px; border-top:1px solid var(--line); color:var(--muted); font-size:14px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <b>Carlo Nathanael</b>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="banner">
+  <img src="assets/banner.jpg" alt="Close-up of a backlit keyboard with a glowing yellow Enter key" width="1280" height="720" fetchpriority="high">
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="avatar" aria-label="Profile photo">
+        <span>CN</span>
+        <img src="assets/profile.jpg" alt="Photo of Carlo Nathanael" onerror="this.remove()">
+      </div>
+      <div>
+      <div class="eyebrow">Software engineering · Applied ML · Automation</div>
+      <h1>I build things that take an idea to a working prototype.</h1>
+      <p class="lead">Computer Science graduate from Jakarta. I move between applied machine learning, web and mobile development, and workflow automation, and I like testing whether the result is actually useful to the people using it.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See projects</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      </div>
+    </div>
+
+    <section id="about" class="about">
+      <h2>About</h2>
+      <p>I studied Computer Science at Universitas Bina Nusantara (2020–2025) with a software engineering focus. My foundation covers web development with Laravel, Android development with Kotlin, and object-oriented programming in Java and C++.</p>
+      <p>My thesis applied computer vision to medical imaging, and my current internship in a corporate Human Capital division has pushed me toward practical automation: mapping manual processes, building small internal tools, and running pilots before anything gets scaled.</p>
+      <p>I'm based in Jakarta and comfortable working in both Indonesian and English.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+
+        <article class="card featured">
+          <div class="visual">
+            <svg viewBox="0 0 600 170" role="img" aria-label="Diagram: a chest radiograph goes into Florence-2 and a text caption comes out">
+              <rect class="box" x="24" y="20" width="120" height="130" rx="10"/>
+              <ellipse class="ln" cx="68" cy="82" rx="20" ry="36"/>
+              <ellipse class="ln" cx="100" cy="82" rx="20" ry="36"/>
+              <line class="ln" x1="84" y1="38" x2="84" y2="130"/>
+              <text class="txt-s" x="84" y="164" text-anchor="middle">chest radiograph</text>
+              <path class="ln-accent" d="M156 85 H214 M204 77 L214 85 L204 93"/>
+              <rect class="box-accent" x="222" y="52" width="136" height="66" rx="12"/>
+              <text class="txt-w" x="290" y="82" text-anchor="middle">Florence-2</text>
+              <text class="txt-w" x="290" y="100" text-anchor="middle" style="font-weight:400;font-size:11px">fine-tuned</text>
+              <path class="ln-accent" d="M370 85 H428 M418 77 L428 85 L418 93"/>
+              <rect class="box" x="436" y="20" width="140" height="130" rx="10"/>
+              <rect class="fill-accent" x="452" y="40" width="72" height="8" rx="4"/>
+              <rect class="fill-muted" x="452" y="60" width="108" height="8" rx="4"/>
+              <rect class="fill-muted" x="452" y="76" width="96" height="8" rx="4"/>
+              <rect class="fill-muted" x="452" y="92" width="108" height="8" rx="4"/>
+              <rect class="fill-muted" x="452" y="108" width="64" height="8" rx="4"/>
+              <text class="txt-s" x="506" y="164" text-anchor="middle">generated caption</text>
+            </svg>
+          </div>
+          <span class="badge">Thesis</span>
+          <h3>Thorscribe — chest X-ray image captioning</h3>
+          <p class="meta">Universitas Bina Nusantara · 2025</p>
+          <p>Fine-tuned Florence-2, a vision-language model, to generate descriptive captions for chest radiographs, using the thorax subset of the ROCOv2 dataset. The goal was to support the identification of thoracic findings through readable text rather than a bare classification label.</p>
+          <p>The best configuration (learning rate 1e-6, weight decay 0.05) reached a validation loss of 1.18. I evaluated it two ways: automatic metrics (BLEU, ROUGE-L, METEOR, CIDEr, BERTScore, CLIP Score) and a user study with 50 respondents, who rated caption accuracy 3.4 out of 5 on average.</p>
+          <div class="tags"><span class="tag">Florence-2</span><span class="tag">Computer vision</span><span class="tag">Fine-tuning</span><span class="tag">Medical imaging</span><span class="tag">User study</span></div>
+        </article>
+
+        <article class="card">
+          <div class="visual shot">
+            <img src="assets/self-assessment.png" alt="Quiz result screen: score bars for four archetypes and a wheel with the result plotted as a point near Athlete" width="670" height="656" loading="lazy">
+            <div class="cap">Result screen of the live quiz (Indonesian UI)</div>
+          </div>
+          <h3>Self-assessment quiz platform</h3>
+          <p class="meta">Design, front end and automation pipeline</p>
+          <p>A self-assessment quiz built on the Innovation Code framework, designed for a general audience. Instead of forcing a single "type", scoring is vector-based: answers across four archetypes combine into one point on a wheel, so results show a blend and its intensity.</p>
+          <p>It runs as a static quiz on Cloudflare Workers, with scores passed through a small proxy (rate limiting and session tokens) into Power Automate and Excel Online, and joined to Microsoft Forms responses. Earlier iterations used Google Forms with an Apps Script web app; I switched stacks when hosting and tooling constraints changed.</p>
+          <div class="tags"><span class="tag">HTML / JS</span><span class="tag">Cloudflare Workers</span><span class="tag">Power Automate</span><span class="tag">Microsoft Forms</span><span class="tag">Apps Script</span></div>
+        </article>
+
+        <article class="card">
+          <div class="visual shot wide">
+            <img src="assets/mentoring-dashboard.png" alt="Progress monitor dashboard: summary cards for rookie count, average progress and schedule status, filters, and a rookie table with a per-region progress panel" width="1627" height="888" loading="lazy">
+            <div class="cap">Progress monitor in demo mode, with randomly generated data (Indonesian UI)</div>
+          </div>
+          <h3>Mentoring program pilot with live dashboard</h3>
+          <p class="meta">Internal pilot · Google Workspace + Cloudflare</p>
+          <p>A buddy–rookie mentoring program run as a parallel pilot for dozens of pairs. Participants report activities through Google Forms; an Apps Script backend writes to Google Sheets, and a custom dashboard hosted on Cloudflare shows near real-time progress.</p>
+          <p>Over several iterations I worked through multi-role Google sign-in (one account holding several roles), per-participant verification, file-upload evidence, caching to keep load times down, and role-based views so each person only sees what they should. I also produced a UI/UX brief with personas, status definitions and brand colors for external design.</p>
+          <div class="tags"><span class="tag">Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Google OAuth</span><span class="tag">Cloudflare</span><span class="tag">Dashboard UX</span></div>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 600 170" role="img" aria-label="Diagram: five stages of a complaint-handling process">
+              <rect class="box" x="16" y="44" width="96" height="54" rx="10"/>
+              <text class="txt" x="64" y="76" text-anchor="middle">Verify</text>
+              <rect class="box" x="132" y="44" width="96" height="54" rx="10"/>
+              <text class="txt" x="180" y="76" text-anchor="middle">Investigate</text>
+              <rect class="box" x="248" y="44" width="96" height="54" rx="10"/>
+              <text class="txt" x="296" y="76" text-anchor="middle">Follow up</text>
+              <rect class="box" x="364" y="44" width="96" height="54" rx="10"/>
+              <text class="txt" x="412" y="76" text-anchor="middle">Evaluate</text>
+              <rect class="box" x="480" y="44" width="104" height="54" rx="10"/>
+              <text class="txt" x="532" y="76" text-anchor="middle">Analytics</text>
+              <path class="ln" d="M112 71 H132 M228 71 H248 M344 71 H364 M460 71 H480"/>
+              <text class="txt-s" x="300" y="130" text-anchor="middle">Each stage assessed for automation potential and failure modes</text>
+            </svg>
+          </div>
+          <h3>Complaint-handling automation mapping</h3>
+          <p class="meta">Internship project · Banking operations</p>
+          <p>Mapped how several complaint-handling units work, from verification and investigation through follow-up, evaluation and analytics, and separated routine activities from improvement work. I then assessed which steps are good automation candidates and what could go wrong in each.</p>
+          <p>The scope was a proof of concept with recommendations rather than a full AI rollout, with Microsoft Power Automate and Excel as the candidate tools. I framed options as tiers, from rule-based routing up to ML classification and generative copilots, since each step up adds compliance risk.</p>
+          <div class="tags"><span class="tag">Process mapping</span><span class="tag">Power Automate</span><span class="tag">Excel</span><span class="tag">Automation design</span></div>
+        </article>
+
+        <article class="card">
+          <div class="visual logos">
+            <div class="tile"><img src="assets/tamantic-logo.jpg" alt="Tamantic logo: a green plant with leaves above the app name" width="400" height="400" loading="lazy"></div>
+            <div class="tile"><img src="assets/bangkit-program.png" alt="Bangkit Academy logo with its partners Google, GoTo and Traveloka" width="1300" height="481" loading="lazy"></div>
+          </div>
+          <h3>Tamantic</h3>
+          <p class="meta">Bangkit Academy capstone</p>
+          <p>An e-commerce app integrated with machine learning, built as the capstone of the Entrepreneurship track of Bangkit Academy (a program run with Google, Tokopedia, Gojek and Traveloka).</p>
+          <div class="tags"><span class="tag">Mobile</span><span class="tag">Machine learning</span><span class="tag">Team project</span></div>
+        </article>
+
+        <article class="card">
+          <h3>Health data analytics</h3>
+          <p class="meta">Universitas Bina Nusantara</p>
+          <p>Worked on building machine learning systems from health datasets as part of the university's Health Data Analytics work.</p>
+          <div class="tags"><span class="tag">Machine learning</span><span class="tag">Health data</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="card"><h3>Languages and frameworks</h3>
+          <div class="tags"><span class="tag">Kotlin</span><span class="tag">Laravel (PHP)</span><span class="tag">Java</span><span class="tag">C++</span><span class="tag">JavaScript</span></div></div>
+        <div class="card"><h3>Machine learning</h3>
+          <div class="tags"><span class="tag">Computer vision</span><span class="tag">Vision-language models</span><span class="tag">Fine-tuning</span><span class="tag">Evaluation metrics</span><span class="tag">User studies</span></div></div>
+        <div class="card"><h3>Automation and tooling</h3>
+          <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Power Automate</span><span class="tag">Cloudflare Workers / Pages</span><span class="tag">Google Sheets</span><span class="tag">Excel</span></div></div>
+        <div class="card"><h3>Working style</h3>
+          <div class="tags"><span class="tag">Prototype first, iterate</span><span class="tag">Process mapping</span><span class="tag">Dashboard and UX briefs</span></div></div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <h2>Journey</h2>
+      <div class="timeline">
+        <div class="row">
+          <div class="when">2026 – present</div>
+          <div><h3>Intern, Human Capital division</h3><p>Government-sanctioned undergraduate internship (Maganghub) at a major Indonesian bank. Working on process mapping, automation proofs of concept, program tooling and presentations.</p></div>
+        </div>
+        <div class="row">
+          <div class="when">2025</div>
+          <div><h3>Thesis: Thorscribe</h3><p>Fine-tuned Florence-2 for chest radiograph captioning, evaluated with automatic metrics and a 50-person user study.</p></div>
+        </div>
+        <div class="row">
+          <div class="when">2020 – 2025</div>
+          <div><h3>Bachelor of Computer Science (S.Kom), Universitas Bina Nusantara</h3><p>Software engineering focus: Laravel, Kotlin, Java, C++, plus health data analytics.</p></div>
+        </div>
+        <div class="row">
+          <div class="when">Bangkit Academy</div>
+          <div><h3>Entrepreneurship track</h3><p>Capstone project Tamantic, an e-commerce app with machine learning.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Open to internships, junior roles and collaborations in software engineering, applied ML and automation.</p>
+        <div class="cta">
+          <!-- TODO: replace the three links below with your real ones -->
+          <a class="btn primary" href="mailto:carlonathanael53@gmail.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/cnthnael-bkr49/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/cNthnael" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="yr">2026</span> Carlo Nathanael · Jakarta, Indonesia</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
