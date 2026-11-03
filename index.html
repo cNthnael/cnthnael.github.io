@@ -1,10 +1,10 @@
 <!doctype html>
 <!--
   Portfolio site - Carlo Nathanael
-  Version: v1.5 (Tamantic card now shows the Tamantic and Bangkit logos)
-  Created: v1.0 2026-11-03 12:42 WIB | v1.1 2026-11-03 12:46 WIB | v1.2 2026-11-03 13:06 WIB | v1.3 2026-11-03 13:07 WIB | v1.4 2026-11-03 13:21 WIB | v1.5 2026-11-03 13:24 WIB (Asia/Jakarta, UTC+07:00)
+  Version: v1.7 (hero: text first in markup, photo on the right; no reliance on CSS order)
+  Created: v1.0 2026-11-03 12:42 WIB | v1.1 2026-11-03 12:46 WIB | v1.2 2026-11-03 13:06 WIB | v1.3 2026-11-03 13:07 WIB | v1.4 2026-11-03 13:21 WIB | v1.5 2026-11-03 13:24 WIB | v1.6 2026-11-03 13:39 WIB | v1.7 2026-11-03 13:41 WIB (Asia/Jakarta, UTC+07:00)
   Single-file static site, ready for GitHub Pages (save as index.html in the repo root).
-  Photo: put your picture at assets/profile.jpg in the repo. Until then the "CN" initials show.
+  Photo: put your picture at assets/profile.png (or profile.jpg) in the repo. Until then the "CN" initials show.
   Project visuals: each .visual block holds an inline SVG illustration. To use a real screenshot
   instead, replace the <svg> with <img src="assets/your-shot.png" alt="...">.
 -->
@@ -59,7 +59,7 @@
     background:linear-gradient(to bottom, transparent, color-mix(in srgb,var(--bg) 35%,transparent));
     pointer-events:none;
   }
-  .hero{padding:56px 0 40px; display:grid; grid-template-columns:1fr 220px; gap:36px; align-items:center}
+  .hero{padding:56px 0 40px; display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:36px; align-items:center}
   .avatar{
     position:relative; width:220px; height:220px; border-radius:50%; overflow:hidden;
     background:var(--accent-soft); border:1px solid var(--line);
@@ -160,10 +160,6 @@
   <div class="wrap">
 
     <div class="hero">
-      <div class="avatar" aria-label="Profile photo">
-        <span>CN</span>
-        <img src="assets/profile.png" alt="Photo of Carlo Nathanael" onerror="this.remove()">
-      </div>
       <div>
       <div class="eyebrow">Software engineering · Applied ML · Automation</div>
       <h1>I build things that take an idea to a working prototype.</h1>
@@ -172,6 +168,10 @@
         <a class="btn primary" href="#projects">See projects</a>
         <a class="btn" href="#contact">Get in touch</a>
       </div>
+      </div>
+      <div class="avatar" aria-label="Profile photo">
+        <span>CN</span>
+        <img src="assets/profile.png" alt="Photo of Carlo Nathanael" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='assets/profile.jpg'}else{this.remove()}">
       </div>
     </div>
 
@@ -327,9 +327,9 @@
         <p>Open to internships, junior roles and collaborations in software engineering, applied ML and automation.</p>
         <div class="cta">
           <!-- TODO: replace the three links below with your real ones -->
-          <a class="btn primary" href="mailto:carlonathanael53@gmail.com">Email</a>
-          <a class="btn" href="https://www.linkedin.com/in/cnthnael-bkr49/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://github.com/cNthnael" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn primary" href="mailto:YOUR_EMAIL@example.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </section>
